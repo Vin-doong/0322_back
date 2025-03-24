@@ -27,7 +27,12 @@
         WHERE product_name LIKE CONCAT('%', #{keyword}, '%')
         OR company_name LIKE CONCAT('%', #{keyword}, '%')
         OR main_function LIKE CONCAT('%', #{keyword}, '%')
-        ORDER BY product_name
+        ORDER BY 
+            CASE WHEN product_name LIKE CONCAT(#{keyword}, '%') THEN 1
+                WHEN product_name LIKE CONCAT('%', #{keyword}, '%') THEN 2
+                ELSE 3
+            END,
+            product_name
         LIMIT 20
     </select>
     
