@@ -20,6 +20,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 public class MemberDto {
+    //📛📛 유정 추가
+    private Long memberId;
     @NotBlank(message = "이메일을 입력해주세요.")
     @Email(message = "올바른 이메일 형식이 아닙니다.")
     private String email;
@@ -44,6 +46,8 @@ public class MemberDto {
     public static MemberDto fromEntity(Member member) {
         return MemberDto.builder()
                 .email(member.getEmail())
+                //📛📛 유정 추가
+                .memberId(member.getMemberId())
                 .password(null)  // 보안상 비밀번호는 반환하지 않음
                 .nickname(member.getNickname())
                 .gender(member.getGender())
@@ -57,6 +61,8 @@ public class MemberDto {
     public Member toEntity(String encodedPassword) {
         return Member.builder()
             .email(this.email)
+            //📛📛 유정 추가
+            .memberId(this.memberId)
             .password(encodedPassword)
             .nickname(this.nickname)
             .gender(this.gender)
